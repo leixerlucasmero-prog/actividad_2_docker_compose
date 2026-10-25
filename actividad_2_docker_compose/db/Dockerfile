@@ -1,0 +1,5 @@
+# ---------- Base de datos: MongoDB ----------
+FROM mongo:7
+
+EXPOSE 27017
+CMD ["mongod", "--bind_ip_all"]
