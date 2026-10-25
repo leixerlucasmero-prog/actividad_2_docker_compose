@@ -1,15 +1,5 @@
-# =====================================================================
-# FinTech Solutions S.A. - Aplicación MERN de gestión financiera
-# Actividad 2: orquestación multicontenedor con Docker Compose
-#
-# Arquitectura (3 capas, 2 redes aisladas):
-#   navegador --:80--> frontend --(frontend_net)--> backend --(backend_net)--> db
-#
-# Uso:  docker compose up -d --build
-# =====================================================================
 
 services:
-  # ---------------------------- Capa de datos ------------------------
   db:
     build: ./db
     image: leixerlucas/fintech-db:2.0
@@ -31,7 +21,6 @@ services:
       retries: 10
       start_period: 20s
 
-  # ---------------------------- Capa lógica --------------------------
   backend:
     build: ./backend
     image: leixerlucas/fintech-backend:2.0
@@ -53,7 +42,6 @@ services:
       retries: 5
       start_period: 15s
 
-  # ---------------------------- Capa de presentación -----------------
   frontend:
     build: ./frontend
     image: leixerlucas/fintech-frontend:2.0
@@ -72,14 +60,12 @@ services:
       timeout: 5s
       retries: 5
 
-# ------------------------------ Volúmenes ----------------------------
 volumes:
   mongo_data:
     name: fintech_mongo_data
   mongo_config:
     name: fintech_mongo_config
 
-# ------------------------------ Redes --------------------------------
 networks:
   frontend_net:
     name: fintech_frontend_net
